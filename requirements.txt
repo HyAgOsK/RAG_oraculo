@@ -75,3 +75,4 @@ wcwidth==0.2.13
 yarl==1.20.0
 zstandard==0.23.0
 django-environ
+gunicorn==23.0.0
