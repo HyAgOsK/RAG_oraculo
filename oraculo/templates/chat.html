@@ -2,79 +2,72 @@
 {% load static %}
 {% load permission_tags %}
 
-{% block 'conteudo' %}
-    <main>
-        <header class="relative isolate bg-lime-200/80">
+{% block conteudo %}
+    <main class="bg-[#1a1a1a] text-gray-200 min-h-screen">
+        <header class="relative isolate bg-gray-800 border-b border-gray-700">
             <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
                 <div class="mx-auto flex max-w-2xl items-center justify-between gap-x-8 lg:mx-0 lg:max-w-none">
                     <div class="flex items-center gap-x-6">
                         <img class="mx-auto" style="height: 100px; width: auto;"
-                        src="{% static 'img/arcane.png' %}"
-                        alt="SK CONSULTORIA">                        <h1>
-                            <div class="mt-1 text-base font-semibold text-gray-900">Treinamento da IA</div>
+                            src="{% static 'img/arcane.png' %}"
+                            alt="SK CONSULTORIA">
+                        <h1>
+                            <div class="mt-1 text-base font-semibold text-white">Treinamento da IA</div>
                         </h1>
                     </div>
                     <div class="flex items-center gap-x-4 sm:gap-x-6">
                         <a href="{% url 'treinar_ia' %}"
-                           type="button"
-                           class="hidden text-sm/6 font-semibold text-gray-900 sm:block">Treinamento da IA</a>
+                        class="hidden text-sm/6 font-semibold text-gray-300 hover:text-white sm:block">Treinamento da IA</a>
                         <a href="{% url 'chat' %}"
-                           type="button"
-                           class="hidden text-sm/6 font-semibold text-gray-900 sm:block">Perguntar</a>
+                        class="hidden text-sm/6 font-semibold text-gray-300 hover:text-white sm:block">Perguntar</a>
                     </div>
                 </div>
             </div>
         </header>
+
         <div class="px-4 md:px-0">
-            <div class="mx-auto bg-slate-50 mt-8 max-w-4xl px-4 py-16 sm:px-6 lg:px-8 border border-slate-200/60 rounded-md">
-    
-                <!-- Container principal empilhando tudo -->
+            <div class="mx-auto bg-gray-900 mt-8 max-w-4xl px-4 py-16 sm:px-6 lg:px-8 border border-gray-700 rounded-md">
                 <div class="flex flex-col gap-6" id="chat">
 
                     <!-- Mensagem do assistente -->
                     <div class="flex items-start gap-2.5">
-                        <img class="w-12 h-12 rounded-full" src="{% static 'img/assistente_virtual.png' %}" alt="Jese image">
+                        <img class="w-12 h-12 rounded-full" src="{% static 'img/assistente_virtual.png' %}" alt="Assistente">
                         <div class="flex flex-col gap-1 w-full max-w-[320px]">
                             <div class="flex items-center space-x-2 rtl:space-x-reverse">
-                            <span class="text-sm font-semibold text-gray-900">SK</span>
-                            <span class="text-sm font-normal text-gray-500">11:46</span>
+                                <span class="text-sm font-semibold text-white">SK</span>
+                                <span class="text-sm font-normal text-gray-400">11:46</span>
                             </div>
-                            <div class="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-200 rounded-e-xl rounded-es-xl">
-                            <p class="text-sm font-normal py-2.5 text-gray-900">
-                                Olá, eu sou sua assistente virtual. Como posso ajudar?
-                            </p>
+                            <div class="flex flex-col leading-1.5 p-4 bg-gray-800 rounded-e-xl rounded-es-xl">
+                                <p class="text-sm font-normal py-2.5 text-gray-200">
+                                    Sou seu consultante hoje, me chame de Jarvis, o que você deseja?
+                                </p>
                             </div>
                         </div>
                     </div>
 
-
-
                 </div>
-
-                
             </div>
         </div>
 
         <div class="px-4 md:px-0">
-            <div class="mx-auto bg-slate-50 mt-6 max-w-4xl px-4 py-4 sm:px-6 lg:px-8 border border-slate-200/60 rounded-md">
+            <div class="mx-auto bg-gray-900 mt-6 max-w-4xl px-4 py-4 sm:px-6 lg:px-8 border border-gray-700 rounded-md">
                 <form id="form-pergunta">
                     <div class="flex items-center gap-4">
                         <input 
-                        type="text" 
-                        name="pergunta"
-                        id="pergunta" 
-                        placeholder="Digite sua pergunta..." 
-                        class="flex-1 border border-slate-300 rounded-md px-4 py-2 text-sm text-gray-800 bg-white"
+                            type="text" 
+                            name="pergunta"
+                            id="pergunta" 
+                            placeholder="Digite sua pergunta..." 
+                            class="flex-1 border border-gray-600 rounded-md px-4 py-2 text-sm text-gray-100 bg-gray-800 placeholder-gray-500"
                         >
-                        <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Enviar
+                        <button type="submit"
+                                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                            Enviar
                         </button>
                     </div>
                 </form>
             </div>
         </div>
-
-
     </main>
 
     <script>
@@ -163,4 +156,4 @@
 
 
 
-{% endblock 'conteudo' %}
+{% endblock conteudo %}
