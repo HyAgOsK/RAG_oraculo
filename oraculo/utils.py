@@ -83,8 +83,8 @@ def send_message_response(phone):
             "textMessage": {"text": response}
         })
 
-    #cache.delete(f"wa_buffer_{phone}")
-    #cache.delete(f"wa_timer_{phone}")
+    cache.delete(f"wa_buffer_{phone}")
+    cache.delete(f"wa_timer_{phone}")
 
     
 
