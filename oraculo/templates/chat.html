@@ -36,7 +36,7 @@
                         <img class="w-12 h-12 rounded-full" src="{% static 'img/assistente_virtual.png' %}" alt="Jese image">
                         <div class="flex flex-col gap-1 w-full max-w-[320px]">
                             <div class="flex items-center space-x-2 rtl:space-x-reverse">
-                            <span class="text-sm font-semibold text-gray-900">Pythonete</span>
+                            <span class="text-sm font-semibold text-gray-900">SK</span>
                             <span class="text-sm font-normal text-gray-500">11:46</span>
                             </div>
                             <div class="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-200 rounded-e-xl rounded-es-xl">
@@ -117,14 +117,14 @@
                 novaMensagem.className = "flex items-start gap-2.5";
                
                 novaMensagem.innerHTML = `
-                    <img class="w-12 h-12 rounded-full" src="{% static 'img/assistente_virtual.png' %}" alt="Pythonete">
+                    <img class="w-12 h-12 rounded-full" src="{% static 'img/assistente_virtual.png' %}" alt="SK">
                     <div class="flex flex-col gap-1 w-full max-w-[320px]">
                         <div class="flex items-center space-x-2 rtl:space-x-reverse">
-                            <span class="text-sm font-semibold text-gray-900">Pythonete</span>
+                            <span class="text-sm font-semibold text-gray-900">SK</span>
                             <span class="text-sm font-normal text-gray-500">10:00</span>
                         </div>
                         <div class="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-200 rounded-e-xl rounded-es-xl">
-                            <p id="resposta-pythonete-${perguntaId}" class="text-sm font-normal py-2.5 text-gray-900"></p>
+                            <p id="resposta-SK-${perguntaId}" class="text-sm font-normal py-2.5 text-gray-900"></p>
                         </div>
                        <a href="/oraculo/ver_fontes/${perguntaId}" class="text-sm font-normal text-gray-500 dark:text-gray-400">Confira as fonte</a>
                     </div>
@@ -144,7 +144,7 @@
     
                 const reader = streamResponse.body.getReader();
                 const decoder = new TextDecoder("utf-8");
-                const respostaElemento = document.getElementById(`resposta-pythonete-${perguntaId}`);
+                const respostaElemento = document.getElementById(`resposta-SK-${perguntaId}`);
     
                 while (true) {
                     const { done, value } = await reader.read();
