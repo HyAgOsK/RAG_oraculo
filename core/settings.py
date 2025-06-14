@@ -13,24 +13,26 @@ import os
 from pathlib import Path
 from django.contrib.messages import constants
 import environ
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load environment variables from .env file
-env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# Load environment variables from .env file with decouple config
+# Initialize environment variables
 
 # Set the OpenAI API key
-OPENAI_API_KEY = env('OPENAI_API_KEY')
+OPENAI_API_KEY = config('OPENAI_API_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=False)
+DEBUG = config('DEBUG', cast=bool)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY='django-insecure-&rk!bp2$+v%$+lumiyuwgv=17=+&sr0u7$y)%*u4nie23r0qrp'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = ['https://*.railway.app']
 
 CACHES = {
     'default':{
@@ -53,10 +55,14 @@ INSTALLED_APPS = [
     'oraculo',
 ]
 
+if DEBUG:
+    INSTALLED_APPS.append('whitenoise.runserver_nostatic')
+
 ROLEPERMISSIONS_MODULE = 'core.roles'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -138,6 +144,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
