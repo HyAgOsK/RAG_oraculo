@@ -2,7 +2,7 @@
 {% load static %}
 {% load permission_tags %}
 
-{% block conteudo %}
+{% block 'conteudo' %}
     <main>
         <header class="relative isolate bg-lime-200/80">
             <div class="mx-auto max-w-7xl py-10 sm:px-6">
@@ -12,12 +12,13 @@
                             src="{% static 'img/arcane.png' %}"
                             alt="SK CONSULTORIA">
                         <h1>
-                            <span class="text-sm/6 text-gray-500">Upload</span><br>
-                            <span class="mt-1 text-base font-semibold text-gray-900 block">Treinamento da IA</span>
+                            <div class="text-sm/6 text-gray-500">Upload</div>
+                            <div class="mt-1 text-base font-semibold text-gray-900">Treinamento da IA</div>
                         </h1>
                     </div>
                     <div class="flex items-center gap-x-4 sm:gap-x-6">
                         <a href="{% url 'treinar_ia' %}"
+                           type="button"
                            class="hidden text-sm/6 font-semibold text-gray-900 sm:block">Treinamento da IA</a>
                     </div>
                 </div>
@@ -71,6 +72,13 @@
                     </div>
                 </div>
             </div>
+
+    
+
         </div>
+
     </main>
-{% endblock conteudo %}
+
+
+
+{% endblock 'conteudo' %}
