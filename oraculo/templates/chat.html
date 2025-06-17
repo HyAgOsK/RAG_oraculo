@@ -10,17 +10,16 @@
                     <div class="flex items-center gap-x-6">
                         <img class="mx-auto" style="height: 200px; width: auto;"
                         src="{% static 'img/arcane.png' %}"
-                        alt="SK CONSULTORIA">                        <h1>
-                            <div class="mt-1 text-base font-semibold text-gray-100">Treinamento da IA</div>
-                        </h1>
+                        alt="SK CONSULTORIA">                      
                     </div>
                     <div class="flex items-center gap-x-4 sm:gap-x-6">
                         <a href="{% url 'treinar_ia' %}"
                            type="button"
-                           class="hidden text-sm/6 font-semibold text-gray-100 sm:block">Treinamento da IA</a>
+                           class="hidden text-xl/10 font-semibold text-gray-100 sm:block">Treinamento da IA</a>
+                        <span class="text-xl/10 font-semibold text-gray-100 sm:block">|</span>
                         <a href="{% url 'chat' %}"
                            type="button"
-                           class="hidden text-sm/6 font-semibold text-gray-100 sm:block">Perguntar</a>
+                           class="hidden text-xl/10 font-semibold text-gray-100 sm:block">Perguntar</a>
                     </div>
                 </div>
             </div>
@@ -37,7 +36,14 @@
                         <div class="flex flex-col gap-1 w-full max-w-[320px]">
                             <div class="flex items-center space-x-2 rtl:space-x-reverse">
                             <span class="text-sm font-semibold text-gray-900">SK</span>
-                            <span class="text-sm font-normal text-gray-500">11:46</span>
+                            <span class="text-sm font-normal text-gray-500">
+                                <!-- Coloque horaFormatada -->
+                                <script>
+                                    const agora = new Date();
+                                    const horaFormatada = agora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                                    document.write(horaFormatada);
+                                </script>
+                            </span>
                             </div>
                             <div class="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-200 rounded-e-xl rounded-es-xl">
                             <p class="text-sm font-normal py-2.5 text-gray-900">
@@ -84,7 +90,7 @@
             const pergunta = document.getElementById('pergunta').value;
             const formData = new FormData();
             formData.append('pergunta', pergunta);
-    
+            document.getElementById('pergunta').value = '';
             try {
                 const response = await fetch("{% url 'chat' %}", {
                     method: "POST",
@@ -94,16 +100,18 @@
                 const data = await response.json();
                 const perguntaId = data.id;
                 console.log("ID salvo:", perguntaId);
-    
+                const agora = new Date();
+                const horaFormatada = agora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
                 const novaMensagem1 = document.createElement("div");
                 novaMensagem1.className = "flex items-start gap-2.5 justify-end";
                 novaMensagem1.innerHTML = `
                     <div class="flex flex-col gap-1 w-full max-w-[320px] text-right">
                         <div class="flex items-center justify-end space-x-2 rtl:space-x-reverse">
-                        <span class="text-sm font-normal text-gray-500">11:46</span>
+                        <span class="text-sm font-normal text-gray-500">${horaFormatada}</span>
                         <span class="text-sm font-semibold text-gray-900">Você</span>
                         </div>
-                            <div class="flex flex-col leading-1.5 p-4 bg-lime-200 text-gray-900 rounded-s-xl rounded-ee-xl">
+                            <div class="flex flex-col leading-1.5 p-4 bg-gray-200 text-gray-900 rounded-s-xl rounded-ee-xl">
                             <p class="text-sm font-normal py-2.5">
                                 ${pergunta}
                             </p>
@@ -121,7 +129,7 @@
                     <div class="flex flex-col gap-1 w-full max-w-[320px]">
                         <div class="flex items-center space-x-2 rtl:space-x-reverse">
                             <span class="text-sm font-semibold text-gray-900">SK</span>
-                            <span class="text-sm font-normal text-gray-500">10:00</span>
+                            <span class="text-sm font-normal text-gray-500">${horaFormatada}</span>
                         </div>
                         <div class="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-200 rounded-e-xl rounded-es-xl">
                             <p id="resposta-SK-${perguntaId}" class="text-sm font-normal py-2.5 text-gray-900"></p>
