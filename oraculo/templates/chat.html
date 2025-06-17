@@ -4,23 +4,23 @@
 
 {% block 'conteudo' %}
     <main>
-        <header class="relative isolate bg-lime-200/80">
+        <header class="relative isolate bg-indigo-600">
             <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
                 <div class="mx-auto flex max-w-2xl items-center justify-between gap-x-8 lg:mx-0 lg:max-w-none">
                     <div class="flex items-center gap-x-6">
-                        <img class="mx-auto" style="height: 100px; width: auto;"
+                        <img class="mx-auto" style="height: 200px; width: auto;"
                         src="{% static 'img/arcane.png' %}"
                         alt="SK CONSULTORIA">                        <h1>
-                            <div class="mt-1 text-base font-semibold text-gray-900">Treinamento da IA</div>
+                            <div class="mt-1 text-base font-semibold text-gray-100">Treinamento da IA</div>
                         </h1>
                     </div>
                     <div class="flex items-center gap-x-4 sm:gap-x-6">
                         <a href="{% url 'treinar_ia' %}"
                            type="button"
-                           class="hidden text-sm/6 font-semibold text-gray-900 sm:block">Treinamento da IA</a>
+                           class="hidden text-sm/6 font-semibold text-gray-100 sm:block">Treinamento da IA</a>
                         <a href="{% url 'chat' %}"
                            type="button"
-                           class="hidden text-sm/6 font-semibold text-gray-900 sm:block">Perguntar</a>
+                           class="hidden text-sm/6 font-semibold text-gray-100 sm:block">Perguntar</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                             </div>
                             <div class="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-200 rounded-e-xl rounded-es-xl">
                             <p class="text-sm font-normal py-2.5 text-gray-900">
-                                Sou seu consultante hoje, me chame de Jarvs, o que você deseja?
+                                Sou seu consultante hoje, me chame de Jarvis, o que você deseja que eu analise?
                             </p>
                             </div>
                         </div>

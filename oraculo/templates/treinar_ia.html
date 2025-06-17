@@ -4,23 +4,21 @@
 
 {% block 'conteudo' %}
     <main>
-        <header class="relative isolate bg-lime-200/80">
+        <header class="relative isolate bg-indigo-600">
             <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
                 <div class="mx-auto flex max-w-2xl items-center justify-between gap-x-8 lg:mx-0 lg:max-w-none">
                     <div class="flex items-center gap-x-6">
-<img class="mx-auto" style="height: 100px; width: auto;"
+<img class="mx-auto" style="height: 200px; width: auto;"
                             src="{% static 'img/arcane.png' %}"
-                            alt="SK CONSULTORIA">                        <h1>
-                            <div class="mt-1 text-base font-semibold text-gray-900">Treinamento da IA</div>
-                        </h1>
+                            alt="SK CONSULTORIA">
                     </div>
                     <div class="flex items-center gap-x-4 sm:gap-x-6">
                         <a href="{% url 'treinar_ia' %}"
                            type="button"
-                           class="hidden text-sm/6 font-semibold text-gray-900 sm:block">Treinamento da IA</a>
+                           class="hidden text-sm/6 font-semibold text-gray-100 sm:block">Treinamento da IA</a>
                           <a href="{% url 'chat' %}"
                            type="button"
-                           class="hidden text-sm/6 font-semibold text-gray-900 sm:block">Perguntar</a>
+                           class="hidden text-sm/6 font-semibold text-gray-100 sm:block">Perguntar</a>
                     </div>
                 </div>
             </div>
