@@ -96,7 +96,7 @@ def send_message_response(phone):
         context = "\n\n".join([doc.page_content for doc in docs ])
 
         messages = [
-            {"role": "system", "content": f"Você é um assistente virtual e deve responder com precissão as perguntas sobre uma empresa chamada Giovani.\n\n{context}"},
+            {"role": "system", "content": f"Recupere e integre referências técnicas de ML, Visão Computacional e EdgeML, datascience para gerar respostas claras, práticas e otimizadas para execução em núvem e em borda na borda.\n\n{context}"},
             {"role": "user", "content": question}
         ]
         
