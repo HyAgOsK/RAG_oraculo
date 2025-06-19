@@ -3,7 +3,7 @@ from django.db import models
 class Treinamentos(models.Model):
     site = models.URLField()
     conteudo = models.TextField()
-    arquivo = models.FileField(upload_to='documentos')
+    arquivo = models.FileField(upload_to='documento')
 
     def __str__(self):
         return self.site

@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('site', models.URLField()),
                 ('conteudo', models.TextField()),
-                ('documento', models.FileField(upload_to='documentos')),
+                ('documento', models.FileField(upload_to='documento')),
             ],
         ),
     ]

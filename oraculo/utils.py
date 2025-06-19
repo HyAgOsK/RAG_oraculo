@@ -1,7 +1,7 @@
 from langchain.docstore.document import Document
 from typing import List
 import requests
-from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyMuPDFLoader, ImageCaptionLoader
 from bs4 import BeautifulSoup
 from apscheduler.schedulers.background import BackgroundScheduler
 from django.core.cache import cache 
@@ -9,9 +9,26 @@ from datetime import datetime, timedelta
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_community.vectorstores import FAISS
 from .wrapper_evolutionapi import SendMessage
+from django.conf import settings
 
 scheduler = BackgroundScheduler()
 scheduler.start()
+
+def formatar_texto_pdf(texto: str) -> str:
+    linhas = texto.splitlines()
+    resultado = []
+    for linha in linhas:
+        linha = linha.strip()
+        if not linha:
+            continue
+        if linha.isupper() and len(linha) < 60:
+            resultado.append(f"\n\n### {linha}")
+        elif linha.endswith(":"):
+            resultado.append(f"\n\n## {linha}")
+        else:
+            resultado.append(linha)
+    return "\n".join(resultado).strip()
+
 
 def html_para_texto_rag(html_str: str) -> str:
     soup = BeautifulSoup(html_str, "html.parser")
@@ -39,12 +56,23 @@ def gerar_documentos(instance) -> List[Document]:
     if instance.arquivo:
         extensao = instance.arquivo.name.split('.')[-1].lower()
         if extensao == 'pdf':
-            loader = PyPDFLoader(instance.arquivo.path)
+            loader = PyMuPDFLoader(instance.arquivo.path)
             pdf_doc = loader.load()
             for doc in pdf_doc:
+                doc.page_content = formatar_texto_pdf(doc.page_content)
                 doc.metadata['url'] = [instance.arquivo.url]
             documentos += pdf_doc
-
+        elif extensao in ['txt', 'md']:
+            with open(instance.arquivo.path, 'r', encoding='utf-8') as file:
+                content = file.read()
+                documentos.append(Document(page_content=content, metadata={'url': [instance.arquivo.url]}))
+        elif extensao in ['png', 'jpg', 'jpeg']:
+            loader = ImageCaptionLoader(instance.arquivo.path)
+            image_doc = loader.load()
+            for doc in image_doc:
+                doc.metadata['url'] = [instance.arquivo.url]
+            documentos += image_doc
+                
     if instance.conteudo:
         documentos.append(Document(page_content=instance.conteudo))
     
@@ -53,7 +81,8 @@ def gerar_documentos(instance) -> List[Document]:
         content = requests.get(site_url, timeout=10).text
         content = html_para_texto_rag(content)
         documentos.append(Document(page_content=content))
-        
+    else:
+        return
     
     return documentos
 
@@ -67,7 +96,7 @@ def send_message_response(phone):
         context = "\n\n".join([doc.page_content for doc in docs ])
 
         messages = [
-            {"role": "system", "content": f"Você é um assistente virtual e deve responder com precissão as perguntas sobre uma empresa.\n\n{context}"},
+            {"role": "system", "content": f"Você é um assistente virtual e deve responder com precissão as perguntas sobre uma empresa chamada Giovani.\n\n{context}"},
             {"role": "user", "content": question}
         ]
         

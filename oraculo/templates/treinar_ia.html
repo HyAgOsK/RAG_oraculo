@@ -3,12 +3,18 @@
 {% load permission_tags %}
 
 {% block 'conteudo' %}
-    <main>
-        <header class="relative isolate bg-indigo-600">
-            <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+<style>
+  img{
+    background-color:black;
+    filter: brightness(100%) contrast(150%);
+    }
+</style>
+<main>
+        <header class="relative isolate bg-black">
+            <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 bg-black">
                 <div class="mx-auto flex max-w-2xl items-center justify-between gap-x-8 lg:mx-0 lg:max-w-none">
                     <div class="flex items-center gap-x-6">
-<img class="mx-auto" style="height: 200px; width: auto;"
+                      <img class="mx-auto" style="height: 200px; width: auto;"
                             src="{% static 'img/arcane.png' %}"
                             alt="SK CONSULTORIA">
                     </div>
@@ -24,13 +30,18 @@
                 </div>
             </div>
         </header>
-        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <body class="bg-gray-400">
+        <div class="mx-auto my-10 max-w-7xl px-4 py-16 sm:px-6 lg:px-8 bg-gray-100 rounded-3xl">
             <div class="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                 <!-- tasks -->
-                <div class="lg:col-start-3 lg:row-end-1">
-                    <div class="rounded-lg bg-gray-50 shadow-xs ring-1 ring-gray-900/5 p-6">
+                <div class="lg:col-start-3 col-end-14">
+                    <div class="rounded-3xl bg-gray-50 shadow-xs ring-1 ring-gray-900/5 p-6">
                         
                       <div class="flow-root">
+                        <form action="{% url 'limpar_tarefas_antigas' %}" method="POST" onsubmit="return confirm('Apagar todas as tarefas?')">
+                          {% csrf_token %}
+                          <button class="text-sm mb-4 bg-red-600 text-white px-4 py-2 rounded-3xl hover:bg-red-700">🧹 Limpar Histórico</button>
+                        </form>
                           <div class="-mx-5 -my-4 overflow-x-auto md:-mx-6 lg:-mx-8">
                             <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                               <table class="min-w-full divide-y divide-gray-300">
@@ -147,5 +158,6 @@
         </div>
     </div>
 </div>
+</body>
 </main>
 {% endblock 'conteudo' %}

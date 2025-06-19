@@ -4,7 +4,7 @@
 
 {% block 'conteudo' %}
     <main>
-        <header class="relative isolate bg-indigo-600">
+        <header class="relative isolate bg-black">
             <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
                 <div class="mx-auto flex max-w-2xl items-center justify-between gap-x-8 lg:mx-0 lg:max-w-none">
                     <div class="flex items-center gap-x-6">
@@ -24,8 +24,9 @@
                 </div>
             </div>
         </header>
+        <body class="bg-gray-400">
         <div class="px-4 md:px-0">
-            <div class="mx-auto bg-slate-50 mt-8 max-w-4xl px-4 py-16 sm:px-6 lg:px-8 border border-slate-200/60 rounded-md">
+            <div class="mx-auto bg-slate-50 mt-8 max-w-4xl px-4 py-16 sm:px-6 lg:px-8 border border-slate-200/60 rounded-3xl">
     
                 <!-- Container principal empilhando tudo -->
                 <div class="flex flex-col gap-6" id="chat">
@@ -62,7 +63,7 @@
         </div>
 
         <div class="px-4 md:px-0">
-            <div class="mx-auto bg-slate-50 mt-6 max-w-4xl px-4 py-4 sm:px-6 lg:px-8 border border-slate-200/60 rounded-md">
+            <div class="mx-auto bg-slate-50 mt-6 max-w-4xl px-4 py-4 sm:px-6 lg:px-8 border border-slate-200/60 rounded-3xl">
                 <form id="form-pergunta">
                     <div class="flex items-center gap-4">
                         <input 
@@ -134,7 +135,7 @@
                         <div class="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-200 rounded-e-xl rounded-es-xl">
                             <p id="resposta-SK-${perguntaId}" class="text-sm font-normal py-2.5 text-gray-900"></p>
                         </div>
-                       <a href="/oraculo/ver_fontes/${perguntaId}" class="text-sm font-normal text-gray-500 dark:text-gray-400">Confira as fonte</a>
+                       <a href="/oraculo/ver_fontes/${perguntaId}" class="text-sm font-normal text-gray-500 dark:text-gray-400">Confira as fontes</a>
                     </div>
                 `;
     

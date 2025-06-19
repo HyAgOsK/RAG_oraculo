@@ -3,68 +3,97 @@
 {% load permission_tags %}
 
 {% block 'conteudo' %}
+<style>
+    /* Parallax background */
+    .parallax-bg {
+      background-color:black;
+      background: #000000;
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  
+    img{
+      background-color:black;
+      filter: brightness(100%) contrast(150%);
+      }
+  
+    /* Glassmorphism container */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+  
+    /* Fade-in animation */
+    .fade-in {
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 
-    <div class="flex min-h-screen bg-[#0f0f0f] flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <img class="mx-auto" style="height: auto; width: 400px;"
-                src="{% static 'img/arcane.png' %}"
-                alt="Your Company">
-            <h2 class="mt-6 text-center text-2xl/9 font-bold tracking-tight text-indigo-700">Crie sua conta</h2>
-        </div>
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-            <div class="bg-white px-6 py-12 shadow-sm sm:rounded-lg sm:px-12">
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="rounded-md {{ message.tags }} mt-4">
-                            <div class="flex">
-                                <div class="ml-3 py-4">{{ message }}</div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                <form class="space-y-6" action="{% url 'cadastro' %}" method="POST">
-                    {% csrf_token %}
-                    <div>
-                        <label for="email" class="block text-sm/6 font-medium text-gray-900">Nome</label>
-                        <div class="mt-2">
-                            <input type="text"
-                                   name="username"
-                                   required
-                                   class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                        </div>
-                    </div>
-                    <div>
-                        <label for="senha" class="block text-sm/6 font-medium text-gray-900">Senha</label>
-                        <div class="mt-2">
-                            <input type="password"
-                                   name="senha"
-                                   id="senha"
-                                   autocomplete="current-password"
-                                   required
-                                   class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm/6 font-medium text-gray-900">Confirmar senha</label>
-                        <div class="mt-2">
-                            <input type="password"
-                                   name="confirmar_senha"
-                                   required
-                                   class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                        </div>
-                    </div>
-                    <div>
-                        <button type="submit"
-                                class="flex w-full justify-center rounded-md bg-indigo-300 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                            Cadastrar
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <p class="mt-10 text-center text-sm/6 text-gray-200">
-                Já tem uma conta?
-                <a href="{% url 'login' %}" class="font-semibold text-indigo-600 hover:text-indigo-300">Logar.</a>
-            </p>
-        </div>
+<div class="parallax-bg min-h-screen flex items-center justify-center px-4 py-12">
+  <div class="flex w-full max-w-5xl flex-col md:flex-row items-center justify-center gap-10 fade-in">
+
+    <!-- Imagem -->
+    <div class="hidden md:block flex-shrink-0">
+      <img class="w-[400px] h-[400px] object-contain drop-shadow-2xl"
+           src="{% static 'img/arcane.png' %}"
+           alt="SK CONSULTORIA">
     </div>
+
+    <!-- Formulário -->
+    <div class="w-full md:max-w-md glass text-white p-8">
+      <h2 class="text-center text-3xl font-bold text-indigo-400 mb-6">Crie sua conta</h2>
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="rounded-md {{ message.tags }} mt-4 bg-indigo-100 p-4 text-black">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <form class="space-y-6" action="{% url 'cadastro' %}" method="POST">
+        {% csrf_token %}
+        <div>
+          <label class="block text-sm font-medium">Nome</label>
+          <input type="text" name="username" required
+                 class="mt-2 block w-full rounded-md px-3 py-2 bg-black/50 text-white border border-gray-500 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm">
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Senha</label>
+          <input type="password" name="senha" required
+                 class="mt-2 block w-full rounded-md px-3 py-2 bg-black/50 text-white border border-gray-500 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm">
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Confirmar senha</label>
+          <input type="password" name="confirmar_senha" required
+                 class="mt-2 block w-full rounded-md px-3 py-2 bg-black/50 text-white border border-gray-500 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm">
+        </div>
+        <div>
+          <button type="submit"
+                  class="w-full flex justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 transition focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Cadastrar
+          </button>
+        </div>
+      </form>
+
+      <p class="mt-6 text-center text-sm text-gray-200">
+        Já tem uma conta?
+        <a href="{% url 'login' %}" class="font-semibold text-indigo-400 hover:text-indigo-300">Logar.</a>
+      </p>
+    </div>
+  </div>
+</div>
 {% endblock 'conteudo' %}

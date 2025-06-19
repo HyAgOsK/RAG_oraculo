@@ -21,12 +21,31 @@ def signals_treinamento_ia(sender, instance, created, **kwargs):
 def task_treinar_ia(instance_id):
     instance = Treinamentos.objects.get(id=instance_id)
     documentos = gerar_documentos(instance)
-
+    
     if not documentos:
         return
     
-    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
+    total_length = sum(len(doc.page_content) for doc in documentos)
+    if total_length < 1000:
+        chunk_size = 300
+        chunk_overlap = 50
+    elif total_length < 5000:
+        chunk_size = 500
+        chunk_overlap = 100
+    else:
+        chunk_size = 1000
+        chunk_overlap = 500
+        
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap,
+        add_start_index=True,
+        length_function=len)
+    
+    
     chunks = splitter.split_documents(documentos)
+    print(f"Split {len(documentos)} documents into {len(chunks)} chunks.")
+    
     embeddings = OpenAIEmbeddings(api_key=settings.OPENAI_API_KEY)
     
     db_path = Path(settings.BASE_DIR) / "banco_faiss"

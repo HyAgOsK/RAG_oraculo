@@ -15,6 +15,14 @@ from pathlib import Path
 import json
 from django.core.cache import cache
 from .utils import sched_message_response
+from django.contrib import messages
+
+
+
+def limpar_tarefas_antigas(request):
+    Task.objects.all().delete()
+    #messages.success(request, "Tarefas anteriores apagas com sucesso")
+    return redirect('treinar_ia')
 
 def treinar_ia(request):
     #if not has_permission(request.user, 'treinar_ia'):
@@ -25,7 +33,7 @@ def treinar_ia(request):
     elif request.method == 'POST':
         site = request.POST.get('site')
         conteudo = request.POST.get('conteudo')
-        arquivo = request.FILES.get('arquivo')
+        arquivo = request.FILES.get('documento')
         
         treinamento = Treinamentos(
                 site=site,
@@ -74,7 +82,14 @@ def stream_response(request):
         ])
 
         messages = [
-            {'role': 'system', 'content': f'Você é um assistente virtual e deve responder com precisão as perguntas sobre uma empresa.\n\n{contexto}'},
+            {'role': 'system', 'content': f"""Você é uma atendente virtual da Giovani Cosmética, especialista em vendas:
+                                                1. Identificar o perfil do cliente (pessoa física ou jurídica, tipo de estabelecimento).
+                                                2. Confirmar a área de atendimento: atuamos somente no Sul de Minas (Triângulo Mineiro).
+                                                3. Montar o pedido com preços atualizados e condições de entrega.
+                                                4. Negociar e sugerir upsell de produtos complementares.
+                                                5. Coletar dados obrigatórios (documentos, endereço, CNPJ/CPF).
+                                                
+                                                Você receberá documentos de catálogos, leia os dados para retornar aos clientes..\n\n{contexto}"""},
             {'role': 'user', 'content': f'{pergunta.pergunta}'}
         ]
 
